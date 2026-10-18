@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "state": "draft",
+  "sources": [],
+  "locators": [],
+  "evidence": [],
+  "regions": [],
+  "roles": [],
+  "rules": [],
+  "slots": [],
+  "preservation": [],
+  "relations": [],
+  "checks": [],
+  "conflicts": [],
+  "issues": [],
+  "extensions": [],
+  "coverage": {
+    "inventory_complete": false,
+    "unclassified_locator_ids": [],
+    "render_review": "not_performed",
+    "evidence_ids": []
+  }
+}

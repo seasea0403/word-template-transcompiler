@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence based document template contract",
+  "description": "A template-neutral intermediate representation. Schema validity is not conversion capability or document correctness.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "state", "sources", "locators", "evidence", "regions", "roles", "rules", "slots", "preservation", "relations", "checks", "conflicts", "issues", "extensions", "coverage"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "state": {"enum": ["draft", "review_required", "approved"]},
+    "sources": {"type": "array", "items": {"$ref": "#/$defs/source"}},
+    "locators": {"type": "array", "items": {"$ref": "#/$defs/locator"}},
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "regions": {"type": "array", "items": {"$ref": "#/$defs/region"}},
+    "roles": {"type": "array", "items": {"$ref": "#/$defs/role"}},
+    "rules": {"type": "array", "items": {"$ref": "#/$defs/rule"}},
+    "slots": {"type": "array", "items": {"$ref": "#/$defs/slot"}},
+    "preservation": {"type": "array", "items": {"$ref": "#/$defs/preservation"}},
+    "relations": {"type": "array", "items": {"$ref": "#/$defs/relation"}},
+    "checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+    "conflicts": {"type": "array", "items": {"$ref": "#/$defs/conflict"}},
+    "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+    "extensions": {"type": "array", "items": {"$ref": "#/$defs/extension"}},
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["inventory_complete", "unclassified_locator_ids", "render_review", "evidence_ids"],
+      "properties": {
+        "inventory_complete": {"type": "boolean"},
+        "unclassified_locator_ids": {"$ref": "#/$defs/ids"},
+        "render_review": {"enum": ["not_performed", "partial", "complete"]},
+        "evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"},
+    "ids": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
+    "text": {"type": "string", "minLength": 1},
+    "nullable_id": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/id"}]},
+    "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "path", "sha256"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["template", "manuscript", "task", "render", "human_decision", "other"]},
+        "path": {"$ref": "#/$defs/text"},
+        "sha256": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "locator": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_id", "kind", "part", "selector", "expected_matches", "guard_sha256"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "source_id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["xml_path", "bookmark", "content_control", "relationship", "text_range", "render_region", "file"]},
+        "part": {"type": ["string", "null"]}, "selector": {"$ref": "#/$defs/text"},
+        "expected_matches": {"type": "integer", "minimum": 1},
+        "guard_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/digest"}]}
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_id", "locator_ids", "kind", "observation", "limitations"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "source_id": {"$ref": "#/$defs/id"},
+        "locator_ids": {"$ref": "#/$defs/ids"},
+        "kind": {"enum": ["explicit_instruction", "sample_format", "structural_fact", "render_observation", "task_requirement", "human_decision"]},
+        "observation": {"$ref": "#/$defs/text"}, "limitations": {"type": "array", "items": {"$ref": "#/$defs/text"}}
+      }
+    },
+    "region": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "semantic_role", "parent_id", "locator_ids", "evidence_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "semantic_role": {"$ref": "#/$defs/text"},
+        "parent_id": {"$ref": "#/$defs/nullable_id"},
+        "locator_ids": {"$ref": "#/$defs/ids"}, "evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "role": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "semantic_role", "kind", "level", "extends", "evidence_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "semantic_role": {"$ref": "#/$defs/text"},
+        "kind": {"enum": ["paragraph", "inline", "table", "figure", "equation", "list", "note", "reference", "field", "region", "custom"]},
+        "level": {"type": ["integer", "null"], "minimum": 1}, "extends": {"$ref": "#/$defs/nullable_id"},
+        "evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role_id", "region_ids", "locator_ids", "language_tags", "occurrence"],
+      "properties": {
+        "role_id": {"$ref": "#/$defs/nullable_id"}, "region_ids": {"$ref": "#/$defs/ids"},
+        "locator_ids": {"$ref": "#/$defs/ids"}, "language_tags": {"type": "array", "items": {"$ref": "#/$defs/text"}, "uniqueItems": true},
+        "occurrence": {"enum": ["all", "first", "last", "each"]}
+      }
+    },
+    "quantity": {
+      "type": "object", "additionalProperties": false, "required": ["type", "amount", "unit"],
+      "properties": {
+        "type": {"const": "quantity"}, "amount": {"type": "number"},
+        "unit": {"enum": ["pt", "mm", "cm", "inch", "twip", "em", "char", "line", "percent", "ratio"]}
+      }
+    },
+    "line_spacing": {
+      "type": "object", "additionalProperties": false, "required": ["type", "mode", "amount"],
+      "properties": {
+        "type": {"const": "line_spacing"}, "mode": {"enum": ["multiple", "exact_pt", "at_least_pt"]},
+        "amount": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "value": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["type", "value"], "properties": {"type": {"const": "text"}, "value": {"$ref": "#/$defs/text"}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "value"], "properties": {"type": {"const": "boolean"}, "value": {"type": "boolean"}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "value"], "properties": {"type": {"const": "integer"}, "value": {"type": "integer"}}},
+        {"$ref": "#/$defs/quantity"}, {"$ref": "#/$defs/line_spacing"},
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "count", "baseline_role_id", "baseline_font_size", "line_spacing"],
+          "properties": {
+            "type": {"const": "blank_lines"}, "count": {"type": "integer", "minimum": 0},
+            "baseline_role_id": {"$ref": "#/$defs/nullable_id"},
+            "baseline_font_size": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/quantity"}]},
+            "line_spacing": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/line_spacing"}]}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["type", "count", "space_kind"],
+          "properties": {"type": {"const": "literal_spaces"}, "count": {"type": "integer", "minimum": 0}, "space_kind": {"enum": ["ascii", "full_width"]}}
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["type", "stops"],
+          "properties": {
+            "type": {"const": "tab_stops"},
+            "stops": {"type": "array", "items": {
+              "type": "object", "additionalProperties": false, "required": ["position", "alignment"],
+              "properties": {"position": {"$ref": "#/$defs/quantity"}, "alignment": {"enum": ["left", "center", "right", "decimal"]}}
+            }}
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["type", "data"],
+          "properties": {"type": {"const": "structured"}, "data": {"type": "object", "minProperties": 1}}
+        }
+      ]
+    },
+    "rule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "target", "property", "decision", "value", "inherits_rule_id", "evidence_ids", "check_ids", "rationale"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "target": {"$ref": "#/$defs/target"},
+        "property": {"type": "string", "pattern": "^[a-z][a-z0-9_.:-]*$"},
+        "decision": {"enum": ["set", "inherit", "preserve", "unresolved"]},
+        "value": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/value"}]},
+        "inherits_rule_id": {"$ref": "#/$defs/nullable_id"}, "evidence_ids": {"$ref": "#/$defs/ids"},
+        "check_ids": {"$ref": "#/$defs/ids"}, "rationale": {"$ref": "#/$defs/text"}
+      }
+    },
+    "slot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "locator_ids", "role_id", "binding", "action", "edit_scope", "missing_policy", "overflow_policy", "evidence_ids", "check_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "locator_ids": {"$ref": "#/$defs/ids"}, "role_id": {"$ref": "#/$defs/nullable_id"},
+        "binding": {"type": ["string", "null"]},
+        "action": {"enum": ["replace_text", "clear_value", "insert_content", "retain", "remove"]},
+        "edit_scope": {"enum": ["text_nodes", "subtree", "range"]},
+        "missing_policy": {"enum": ["leave_blank", "omit", "block"]},
+        "overflow_policy": {"enum": ["block", "review", "approved_reflow"]},
+        "evidence_ids": {"$ref": "#/$defs/ids"}, "check_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "preservation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_id", "locator_ids", "part_paths", "policy", "allowed_slot_ids", "evidence_ids", "check_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "source_id": {"$ref": "#/$defs/id"},
+        "locator_ids": {"$ref": "#/$defs/ids"}, "part_paths": {"type": "array", "items": {"$ref": "#/$defs/text"}, "uniqueItems": true},
+        "policy": {"enum": ["byte_identical", "structure_equivalent", "render_equivalent", "patch_text_only"]},
+        "allowed_slot_ids": {"$ref": "#/$defs/ids"}, "evidence_ids": {"$ref": "#/$defs/ids"}, "check_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "relation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "from", "to", "rule_ids", "update_policy", "evidence_ids", "check_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["precedes", "keep_with", "caption_of", "cross_reference", "citation", "footnote", "toc_entry", "numbering_scope", "header_scope", "custom"]},
+        "from": {"$ref": "#/$defs/target"}, "to": {"$ref": "#/$defs/target"}, "rule_ids": {"$ref": "#/$defs/ids"},
+        "update_policy": {"enum": ["field_update", "regenerate", "static_disclosed", "not_applicable", "unresolved"]},
+        "evidence_ids": {"$ref": "#/$defs/ids"}, "check_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "check": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "target", "criteria", "capability", "evidence_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "kind": {"enum": ["structural", "content", "visual", "interaction", "integrity"]},
+        "target": {"$ref": "#/$defs/target"}, "criteria": {"$ref": "#/$defs/text"},
+        "capability": {"$ref": "#/$defs/text"}, "evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "conflict": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "rule_ids", "reason", "resolved", "selected_rule_ids", "rationale", "resolution_evidence_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "rule_ids": {"allOf": [{"$ref": "#/$defs/ids"}, {"minItems": 2}]},
+        "reason": {"$ref": "#/$defs/text"}, "resolved": {"type": "boolean"},
+        "selected_rule_ids": {"$ref": "#/$defs/ids"}, "rationale": {"type": ["string", "null"]},
+        "resolution_evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "issue": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "target", "category", "severity", "description", "resolved", "resolution", "evidence_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "target": {"$ref": "#/$defs/target"},
+        "category": {"enum": ["missing_evidence", "ambiguity", "unsupported_feature", "coverage_gap", "layout_risk", "other"]},
+        "severity": {"enum": ["blocking", "warning"]}, "description": {"$ref": "#/$defs/text"},
+        "resolved": {"type": "boolean"}, "resolution": {"type": ["string", "null"]}, "evidence_ids": {"$ref": "#/$defs/ids"}
+      }
+    },
+    "extension": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "property", "value_type", "semantics", "capability", "check_capability"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "property": {"type": "string", "pattern": "^x[.][a-z0-9_.:-]+$"},
+        "value_type": {"enum": ["text", "boolean", "integer", "quantity", "line_spacing", "blank_lines", "literal_spaces", "tab_stops", "structured"]},
+        "semantics": {"$ref": "#/$defs/text"}, "capability": {"$ref": "#/$defs/text"}, "check_capability": {"$ref": "#/$defs/text"}
+      }
+    }
+  }
+}

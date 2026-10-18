@@ -1,0 +1,5 @@
+# Core modules. These versions were observed during packaging validation.
+lxml==6.1.1
+Pillow==12.3.0
+pdfplumber==0.11.9
+jsonschema==4.25.1

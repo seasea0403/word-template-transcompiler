@@ -1,0 +1,288 @@
+{
+  "name": "word-template-transcompiler",
+  "version": "1.0.0",
+  "created_at": "2026-10-18T13:18:11.756303+00:00",
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 327,
+      "sha256": "eebcbb778b92ced6f85128b851661e392a31b3de4168c91165eb2593dd4435dd"
+    },
+    {
+      "path": "references/contract-template.md",
+      "bytes": 5605,
+      "sha256": "a54accd2e08ce0502f5b6dcc04c74818f6ea0f2b40797497f8631c6720af949a"
+    },
+    {
+      "path": "references/design-outline.md",
+      "bytes": 1129,
+      "sha256": "981d0ae41b29e8a7ec4d7ce720b7e81e4f7f9b01fb3d7588d30411c4727e9b30"
+    },
+    {
+      "path": "references/equation-page-subspecs.md",
+      "bytes": 6299,
+      "sha256": "94b543a289f453e2d9a53d25ae88c52c7e16e352fb96bb692315ed2b75009352"
+    },
+    {
+      "path": "references/table-reference-subspecs.md",
+      "bytes": 7548,
+      "sha256": "aaf376dca9574696fb3cb30b6925293a534db3a7568e320b2819f3c534ab44be"
+    },
+    {
+      "path": "references/verification.md",
+      "bytes": 3689,
+      "sha256": "0db9cc978ea8712520d38cbe3bb2c543fdb416f5227263ea6662da2297f4583f"
+    },
+    {
+      "path": "references/workflow.md",
+      "bytes": 3564,
+      "sha256": "15f800cde2a2575e175ff252b72ea6f09e8709523d46bfdfe64227e459d4fee5"
+    },
+    {
+      "path": "references/writing.md",
+      "bytes": 4535,
+      "sha256": "adb0745d14ccab8535368ee1366521e92c44680f5c4e9ea3b6b51e8e4705d714"
+    },
+    {
+      "path": "scripts/engine/bind_format_review.py",
+      "bytes": 2546,
+      "sha256": "8160423a77c6ef0285c4ac2d0ea7cb6a479dc45ce5bde8d2a156e22d87519146"
+    },
+    {
+      "path": "scripts/engine/blank.json",
+      "bytes": 430,
+      "sha256": "8c0abe7c59587e9685c7f9eef77d2d9f5b6c1c3d749c5ad5a1bddd8fd626bcc7"
+    },
+    {
+      "path": "scripts/engine/blank_flow.py",
+      "bytes": 2161,
+      "sha256": "8743f43da9ec9266733a34f10a142736ed781c1cdaf9913cb16f39d4876df06a"
+    },
+    {
+      "path": "scripts/engine/compile_role_bindings.py",
+      "bytes": 3618,
+      "sha256": "c1618794ac5eb10072fc4cad340889841d769f08b808713ba7d5c4c57c43fb07"
+    },
+    {
+      "path": "scripts/engine/cover_adapter.py",
+      "bytes": 19528,
+      "sha256": "25651030a721b82ef2697f91fb0fa25f2bae266eb65684b3ccbf6270bc703dfc"
+    },
+    {
+      "path": "scripts/engine/domain_subspecs.py",
+      "bytes": 10085,
+      "sha256": "22d21dce8e9ef41e5d7f23331ba8c6f48ae0457a98aa2cf74cffeb1e9220c5aa"
+    },
+    {
+      "path": "scripts/engine/feature_extraction.py",
+      "bytes": 23391,
+      "sha256": "5e47adaf6ef6a0b98bc3e2fe031e0896f4c08961c5814130deff3881ecfb530a"
+    },
+    {
+      "path": "scripts/engine/finalize_toc.py",
+      "bytes": 3362,
+      "sha256": "4ce99553db91047edab7db928e219cbcaf299c67ebdc921ad63b1b1e3a539df2"
+    },
+    {
+      "path": "scripts/engine/full_writer.py",
+      "bytes": 40400,
+      "sha256": "54124de92084ec3686ca30bf6c5a97c6718e5f23b01e5d959223340e4c8fd725"
+    },
+    {
+      "path": "scripts/engine/inspect_docx.py",
+      "bytes": 9729,
+      "sha256": "8aee2bc5c097cd4cddcaedea60431c84101d4696242c1f30e478bc884c67ce90"
+    },
+    {
+      "path": "scripts/engine/inspect_table_samples.py",
+      "bytes": 4310,
+      "sha256": "9dfb88c41435e9d8620cdc2efdc6fd8adf6afe8708f390321ef26b3fe90b6312"
+    },
+    {
+      "path": "scripts/engine/manuscript_ir.py",
+      "bytes": 7680,
+      "sha256": "d5dc59b5766222ce0bde64dfb2b0ebb303f5f62592597a7ee4800dc80a0431b9"
+    },
+    {
+      "path": "scripts/engine/paragraph_roles.py",
+      "bytes": 5642,
+      "sha256": "6bc178c0939e937fe6e8d3a3f960c70997d72c944255fb4a9a90cb41397f32dd"
+    },
+    {
+      "path": "scripts/engine/prepare_revision.py",
+      "bytes": 2565,
+      "sha256": "b3526f4f1dd0cb78434983f77296e0e7d3ec8dfd10fee83e7dc60f8fed3d2734"
+    },
+    {
+      "path": "scripts/engine/repair_open_fields.py",
+      "bytes": 4152,
+      "sha256": "e0cb01226e5b9bdd34c588882aa75902aaa588fa8fd031e565ac9f9407759f49"
+    },
+    {
+      "path": "scripts/engine/schema.json",
+      "bytes": 13585,
+      "sha256": "955babdfe621a11675f75b57d172a45ac4af71d13321c051ee751efd59804940"
+    },
+    {
+      "path": "scripts/engine/scoped_slot_writer.py",
+      "bytes": 3303,
+      "sha256": "141ef2ce426eb683a891dae95a51d3f883450d4567b7a281ad664f602067d8c1"
+    },
+    {
+      "path": "scripts/engine/segment_title.mjs",
+      "bytes": 548,
+      "sha256": "d00a2ff000d5fafc6da96aacd944233d5245fcdd0778f7f014b3cf30a9b429cc"
+    },
+    {
+      "path": "scripts/engine/test_blank_flow.py",
+      "bytes": 2372,
+      "sha256": "0edbe48f1df15d1ffd71b9ab0bbf0c958f5a147406ab98ef8e008913918e11b9"
+    },
+    {
+      "path": "scripts/engine/test_compile_role_bindings.py",
+      "bytes": 2971,
+      "sha256": "d027affaa8ea6599ca6cd81585f742164224eaf1b3db2ace0edc64450c9991d3"
+    },
+    {
+      "path": "scripts/engine/test_contract.py",
+      "bytes": 8755,
+      "sha256": "303938d0828539dc6ca8d0e321c379cd46742ca1f752bd279032473e3fe19fff"
+    },
+    {
+      "path": "scripts/engine/test_cover_adapter.py",
+      "bytes": 2355,
+      "sha256": "4a96e475e82cc817d96912e095bbc39a8d96a618533d70937177790a774ec1d3"
+    },
+    {
+      "path": "scripts/engine/test_cover_field_geometry.py",
+      "bytes": 1695,
+      "sha256": "7dac64212c4637cd1ea7465a28ea95db0016dae0028edd22f8001711d40ce7a3"
+    },
+    {
+      "path": "scripts/engine/test_domain_subspecs.py",
+      "bytes": 6152,
+      "sha256": "cc1e6e3b441bdb0b51c8f446b14a277df586e87dc39e52e7a784c60d29785729"
+    },
+    {
+      "path": "scripts/engine/test_equation_links.py",
+      "bytes": 1002,
+      "sha256": "75f9a147b765e8c29e3e2daae2a034b16e505642c6da50288146236b0c7c7a19"
+    },
+    {
+      "path": "scripts/engine/test_equation_page_subspecs.py",
+      "bytes": 5801,
+      "sha256": "77e5b32e589d155e8134c3a965a2bf075c8f30e3ddb3901d2551d2c0d2fd33dc"
+    },
+    {
+      "path": "scripts/engine/test_feature_extraction.py",
+      "bytes": 7570,
+      "sha256": "67190baf376663da8830301f00da792aeb894749ae9917f59a7e047939bd3528"
+    },
+    {
+      "path": "scripts/engine/test_finalize_toc.py",
+      "bytes": 2071,
+      "sha256": "122da3aba6d004f3d155ba0719d7e432cf57076e8a4bf85061c8c2bcd200fcbf"
+    },
+    {
+      "path": "scripts/engine/test_paragraph_roles.py",
+      "bytes": 3011,
+      "sha256": "b0580f563e9e663810b7214ae5366ce8277ea913a7d2b998fada808e278e2185"
+    },
+    {
+      "path": "scripts/engine/test_repair_open_fields.py",
+      "bytes": 1837,
+      "sha256": "7f392655e9db462e204b939b8212f5795f5b7d55547259be521d8d4f0e430371"
+    },
+    {
+      "path": "scripts/engine/test_scoped_slot_writer.py",
+      "bytes": 2791,
+      "sha256": "2f369d5a9725d1b18617e72ec129fab46f4f20e5d8244ed6bb48bc124a5e95b5"
+    },
+    {
+      "path": "scripts/engine/test_table_samples.py",
+      "bytes": 2398,
+      "sha256": "d7a330ada363f127fc0b9e2c0b82643f17a5bab8839a2f88d151826b46be64b5"
+    },
+    {
+      "path": "scripts/engine/test_text_slot_writer.py",
+      "bytes": 5282,
+      "sha256": "56ef05358980353d6c5ccd0df1b77d6f2f5efa36520306f3efecc50109a6398d"
+    },
+    {
+      "path": "scripts/engine/test_title_layout.py",
+      "bytes": 1177,
+      "sha256": "a0c2fd0b1e0d33ad7c5763af26e2ee1cbee5d94c6b897cf95e7a3a704b8c97f2"
+    },
+    {
+      "path": "scripts/engine/test_toc_component.py",
+      "bytes": 2029,
+      "sha256": "06f1c70ccb0bb1544fd2185981a9877fa682301ef4fec79cbad908d2df82bcc9"
+    },
+    {
+      "path": "scripts/engine/test_toc_registration.py",
+      "bytes": 621,
+      "sha256": "e0370d34b133bdbf5ccdc4da352a55ab6e606ef2372194efaa11b2eb77bfaf91"
+    },
+    {
+      "path": "scripts/engine/test_write_pipeline.py",
+      "bytes": 3386,
+      "sha256": "eb6bbcc306b10887a47ff05029a484688f73725b419897f4486c4a19718ef051"
+    },
+    {
+      "path": "scripts/engine/text_slot_writer.py",
+      "bytes": 5319,
+      "sha256": "7bd529ceb0ce7df24fb6ca2982ca02120670457d7b900831178c74754b78452b"
+    },
+    {
+      "path": "scripts/engine/title_layout.py",
+      "bytes": 2160,
+      "sha256": "e8907f2bde8366ced0cb7b768a101d0b0b2545d7d12deeee72a92ebb8ec45e6e"
+    },
+    {
+      "path": "scripts/engine/toc_component.py",
+      "bytes": 2977,
+      "sha256": "1cd80a5d0b576e2235c90f6893597957670b151322abbc10f4c6ac69e2b10eb4"
+    },
+    {
+      "path": "scripts/engine/validate.py",
+      "bytes": 19152,
+      "sha256": "eb08e6c5144f3f67e80176e1ca056d27e0be274620134ad963895bd96034ab90"
+    },
+    {
+      "path": "scripts/engine/write_pipeline.py",
+      "bytes": 7373,
+      "sha256": "9fff9da9c5cd376ae4b3fe3bd2d445b17fb0108a69d16491ce8a36082e801dce"
+    },
+    {
+      "path": "scripts/refresh_word.ps1",
+      "bytes": 7865,
+      "sha256": "70e7889325eeac49dfbd4984412ae8fee041ff3a1aa73a6c76cd2505544ce1c0"
+    },
+    {
+      "path": "scripts/requirements.txt",
+      "bytes": 139,
+      "sha256": "0045ec9e11edf003f341dbfb222c6d15ddecddb37e06021950f39f9b17d009f7"
+    },
+    {
+      "path": "scripts/test_skill.py",
+      "bytes": 4333,
+      "sha256": "cf9075ce61e4a0f22a27ca61c9de463f063803633a39b1ff8210f99afa9d65ce"
+    },
+    {
+      "path": "scripts/verify_docx.py",
+      "bytes": 10906,
+      "sha256": "28bf8753c7d8816c05fe54200969f426a48c22c147ed84a3078283b14bbb91aa"
+    },
+    {
+      "path": "scripts/word_template.py",
+      "bytes": 5661,
+      "sha256": "d67dae41c55f3a4a77d424355f3b58c836a52fcb871c757d164353167f3d174a"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 4495,
+      "sha256": "5a29998ac1630cf0f0ed8b8e5fc1fbb6a1dae5e0556b4853368d35b5d5d7efb9"
+    }
+  ],
+  "scope": "Workflow, specifications, portable tools and synthetic tests; no task inputs or credentials"
+}
